@@ -1,0 +1,15 @@
+ server {
+    listen 80;
+
+    server_name focus-lines.com;
+
+    location / {
+        proxy_pass http://frontend:3000;
+    }
+
+    location /api {
+        proxy_pass http://api:5000;
+        rewrite ^/api/(.*) /$1 break;
+    }
+ }
+

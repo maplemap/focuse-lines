@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: docker-from-zero-frontend
+    command: serve -s build -l 3000
+    restart: unless-stopped
+    environment:
+      - WDS_SOCKET_PORT=0
+    networks:
+      - focus-lines-network
+
+  api:
+    build: ./api
+    container_name: focus-lines-api
+    command: [ "flask", "run", "--host=0.0.0.0" ]
+    restart: on-failure
+    volumes:
+      - ./api:/api
+      - ./db/:/root/db/
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+      - DB_HOST=api-db
+    depends_on:
+      - api_db
+    ports:
+      - "5000:5000"
+    networks:
+      - focus-lines-network
+
+  api_db:
+    image: nouchka/sqlite3:latest
+    stdin_open: true
+    tty: true
+    container_name: focus-lines-api-db
+    volumes:
+      - ./db:/root/db
+    networks:
+      - focus-lines-network
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: focus-lines-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - frontend
+      - api
+    networks:
+      - focus-lines-network
+
+volumes:
+  sqlitedb_api:
+
+networks:
+  focus-lines-network:
+    driver: bridge
