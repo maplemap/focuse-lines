@@ -1,12 +1,11 @@
-FROM python:3.9.10-alpine3.14
-
+FROM python:3.11.5-alpine
 WORKDIR /usr/src/app
 
-RUN pip install --upgrade pip
-RUN pip install flask
+COPY ./requirements.txt requirements.txt
 
-COPY requirements.txt /usr/src/app/requirements.txt
+RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev
+RUN pip install -r requirements.txt
 
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
 COPY . .
+
+CMD ["python", "-u", "routes.py"]

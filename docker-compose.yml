@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7ß'
 
 services:
   frontend:
@@ -16,14 +16,13 @@ services:
   api:
     build: ./api
     container_name: focus-lines-api
-    command: [ "flask", "run", "--host=0.0.0.0" ]
     restart: on-failure
     volumes:
-      - ./api:/api
-      - ./db/:/root/db/
+      - ./api:/usr/src/app
+    links:
+      - api_db
     environment:
-      - FLASK_ENV=development
-      - FLASK_APP=app.py
+#      - FLASK_ENV=development
       - DB_HOST=api-db
     depends_on:
       - api_db
@@ -33,12 +32,15 @@ services:
       - focus-lines-network
 
   api_db:
-    image: nouchka/sqlite3:latest
-    stdin_open: true
-    tty: true
+    build: ./api-db
+    command: --default-authentication-plugin=caching_sha2_password
     container_name: focus-lines-api-db
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./db:/root/db
+      - api_db:/var/lib/mysql
     networks:
       - focus-lines-network
 
@@ -56,7 +58,7 @@ services:
       - focus-lines-network
 
 volumes:
-  sqlitedb_api:
+  api_db:
 
 networks:
   focus-lines-network:
