@@ -1,0 +1,13 @@
+@import '~variables';
+
+@function toRem($size) {
+  @return $size / $root-font-size * 1rem;
+}
+
+@mixin header-footer-wrapper {
+  display: flex;
+  width: 94%;
+  height: $header-footer-height;
+  padding: 0 3%;
+  margin: 0 auto;
+}

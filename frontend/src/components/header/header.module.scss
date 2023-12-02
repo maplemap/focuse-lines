@@ -1,0 +1,39 @@
+@import '~mixins';
+@import '~variables';
+
+.header {
+  box-shadow: rgba(0, 0, 0, 0.12) 0 0 toRem(6) 0;
+
+  &__wrapper {
+    @include header-footer-wrapper;
+    line-height: $header-footer-height;
+  }
+
+  &__logo {
+    display: inline-block;
+    margin-right: toRem(8);
+  }
+
+  &__brand {
+    display: inline-block;
+    font-size: toRem(20);
+  }
+
+  &__rightBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+  }
+
+  &__userBox {
+    display: flex;
+    align-items: center;
+  }
+
+  &__userName {
+    max-width: toRem(200);
+    margin-bottom: 0 !important;
+    margin-right: toRem(8);
+  }
+}

@@ -1,0 +1,9 @@
+$color_neutral_50: #FFFFFF;
+$color_neutral_100: #F7F7F7;
+$color_neutral_800: #333;
+$color_neutral_900: #000000;
+
+:export {
+  colorNeutral100: $color_neutral_100;
+  colorNeutral900: $color_neutral_900;
+}

@@ -1,0 +1,20 @@
+@import '~mixins';
+@import '~variables';
+
+$content-margin-x: toRem(16);
+
+.content {
+  height: calc(100vh - #{$header-footer-height * 2 + $content-margin-x * 2});
+  overflow: hidden;
+  overflow-x: auto;
+  padding: 0 3%;
+  margin: $content-margin-x auto;
+}
+
+.footer {
+  &__wrapper {
+    @include header-footer-wrapper;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -22,7 +22,6 @@ services:
     links:
       - api_db
     environment:
-#      - FLASK_ENV=development
       - DB_HOST=api-db
     depends_on:
       - api_db

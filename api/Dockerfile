@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "-u", "routes.py"]
+CMD ["python", "-u", "endpoints.py"]
