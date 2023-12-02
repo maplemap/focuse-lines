@@ -3,4 +3,4 @@ build
 .eslintrc.js
 src/reportWebVitals.js
 config-overrides.js
-webStorm.config.js
+ide.config.js
