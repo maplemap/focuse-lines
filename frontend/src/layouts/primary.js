@@ -15,7 +15,9 @@ export const PrimaryLayout = () => {
           <Outlet />
         </main>
         <footer className={styles.footer}>
-          <div className={styles.footer__wrapper}>2023 CS50 Final Project</div>
+          <div className={styles.footer__wrapper}>
+            {new Date().getFullYear()} Focus Lines
+          </div>
         </footer>
       </div>
     </Spin>

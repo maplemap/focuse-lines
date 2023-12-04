@@ -27,16 +27,22 @@ export const SignInPage = () => {
   };
 
   return (
-    <Row gutter={[24, 0]} justify="space-around">
-      {contextHolder}
-      <Col xs={{span: 24, offset: 0}} lg={{span: 6, offset: 2}} md={{span: 12}}>
-        <Title>Sign In</Title>
-        <Title level={5}>Enter your email and password to sign in</Title>
-        <LoginForm onFinish={onFinish} />
-        <p>
-          Don&apos;t have an account? <Link to="/sign-up">Sign Up</Link>
-        </p>
-      </Col>
-    </Row>
+    !isAuthenticated && (
+      <Row gutter={[24, 0]} justify="space-around">
+        {contextHolder}
+        <Col
+          xs={{span: 24, offset: 0}}
+          lg={{span: 6, offset: 2}}
+          md={{span: 12}}
+        >
+          <Title>Sign In</Title>
+          <Title level={5}>Enter your email and password to sign in</Title>
+          <LoginForm onFinish={onFinish} />
+          <p>
+            Don&apos;t have an account? <Link to="/sign-up">Sign Up</Link>
+          </p>
+        </Col>
+      </Row>
+    )
   );
 };

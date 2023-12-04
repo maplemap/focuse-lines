@@ -9,12 +9,11 @@ export const routes = [
     element: <PrimaryLayout />,
     children: [
       {
-        path: ROUTES.BASE,
-        exact: true,
         element: <ProtectedRoute />,
         children: [
           {
             path: ROUTES.BASE,
+            exact: true,
             element: <PrimaryPage />,
           },
         ],
