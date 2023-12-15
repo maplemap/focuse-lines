@@ -173,6 +173,85 @@ def user():
 
         return resp
 
+@app.route('/lines')
+@jwt_required()
+def links():
+    db = connect_db()
+    db.execute("SELECT id, name, date_of_start, date_of_end  FROM `lines` WHERE user_id = %s", (app.session.get("user_id")))
+
+    resp = jsonify(db.fetchall())
+    resp.status_code = 200
+    db.close()
+
+    return resp
+
+@app.route('/line', methods=["GET", "POST", "PUT", "DELETE"])
+@jwt_required()
+def line():
+    if request.method == "GET":
+        db = connect_db()
+        db.execute("SELECT * FROM `lines` WHERE user_id = %s AND id = %s", (app.session.get("user_id"), request.args.get("id")))
+        db.close()
+
+        resp = jsonify(db.fetchone())
+        resp.status_code = 200
+
+        return resp
+
+    elif request.method == "POST":
+        request_body = request.get_json()
+        name = request_body.get("name")
+        date_of_start = request_body.get("date_of_start")
+        date_of_end = request_body.get("date_of_end")
+        user_id = app.session.get("user_id")
+
+        db = connect_db()
+        db.execute(
+            "INSERT  INTO `lines` (name, date_of_start, date_of_end, user_id) VALUES (%s, %s, %s, %s)",
+            (name, date_of_start, date_of_end, user_id)
+        )
+        db.commit()
+        db.execute("SELECT LAST_INSERT_ID() as id;")
+        db.close()
+
+        resp = jsonify({"id": db.fetchone()["id"]})
+        resp.status_code = 200
+
+        return resp
+
+    if request.method == "PUT":
+        request_body = request.get_json()
+        id = request_body.get("id")
+        name = request_body.get("name")
+        date_of_start = request_body.get("date_of_start")
+        date_of_end = request_body.get("date_of_end")
+
+        db = connect_db()
+        db.execute(
+            "UPDATE `lines` SET name = COALESCE(%s, name), date_of_start = COALESCE(%s, date_of_start), date_of_end = COALESCE(%s, date_of_end)  WHERE user_id = %s AND id = %s",
+            (name, date_of_start, date_of_end, app.session.get("user_id"), id)
+        )
+        db.execute("SELECT id, name, email FROM users WHERE id = %s", id)
+        db.commit()
+        db.close()
+
+        resp = jsonify(db.fetchone())
+        resp.status_code = 200
+
+        return resp
+
+    elif request.method == "DELETE":
+        db = connect_db()
+        db.execute("DELETE FROM `lines` WHERE id = %s", (request.args.get("id")))
+        db.commit()
+        db.close()
+
+        resp = jsonify({"status": "success"})
+        resp.status_code = 200
+
+        return resp
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')

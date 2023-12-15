@@ -13,7 +13,6 @@ export const routes = [
         children: [
           {
             path: ROUTES.BASE,
-            exact: true,
             element: <PrimaryPage />,
           },
         ],

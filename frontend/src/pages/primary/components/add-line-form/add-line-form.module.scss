@@ -1,0 +1,23 @@
+@import '~mixins';
+@import '~colors';
+
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.field {
+  display: inline-block;
+  min-width: toRem(250);
+  margin-right: toRem(16);
+  margin-bottom: 0;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.action {
+  margin-bottom: 0;
+}

@@ -1,0 +1,17 @@
+@import '~mixins';
+
+.header {
+  font-size: toRem(20) !important;
+  text-align: left;
+}
+
+.linesGraph, .addLine, .linesList {
+  margin-top: toRem(20);
+}
+
+.linesList {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+

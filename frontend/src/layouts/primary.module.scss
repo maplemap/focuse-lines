@@ -4,6 +4,8 @@
 $content-margin-x: toRem(16);
 
 .content {
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - #{$header-footer-height * 2 + $content-margin-x * 2});
   overflow: hidden;
   overflow-x: auto;
