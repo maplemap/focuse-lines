@@ -4,13 +4,16 @@ export const AppContext = createContext({});
 
 export const AppStoreProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
+  const [lines, setLines] = useState(null);
 
   const contextValue = useMemo(
     () => ({
       loading,
       setLoading,
+      lines,
+      setLines,
     }),
-    [loading],
+    [lines, loading],
   );
 
   return (

@@ -1,0 +1,34 @@
+@import '~mixins';
+@import '~colors';
+
+.wrapper {
+  margin-top: toRem(12);
+  align-items: center;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.name {
+  margin-bottom: 0 !important;
+}
+
+.rightSide {
+  display: flex;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  margin-right: toRem(12);
+}
+
+.durationLabel {
+  font-weight: bold;
+  margin-right: toRem(8);
+}
+
+.cancelButton {
+  margin-right: toRem(8);
+}

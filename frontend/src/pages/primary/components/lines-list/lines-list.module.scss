@@ -1,0 +1,15 @@
+@import '~mixins';
+
+.list {
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.noLines {
+  font-size: toRem(20);
+  text-align: center;
+}

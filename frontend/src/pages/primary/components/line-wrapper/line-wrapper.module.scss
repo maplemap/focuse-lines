@@ -1,0 +1,10 @@
+@import '~mixins';
+@import '~colors';
+
+.lineWrapper {
+  display: flex;
+  padding: toRem(16) toRem(20);
+  border: 1px solid $color_neutral_300;
+  border-radius: toRem(4);
+  justify-content: space-between;
+}
