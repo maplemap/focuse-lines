@@ -1,6 +1,11 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {AUTHORIZATION_TOKEN_KEY, USER_DATA_KEY} from '@/constants';
+import {ROUTES} from '@/routes/constants';
 import {useFetchUser} from '@/services/api';
+import {ERROR_STATUS} from '@/services/api/constants';
 import {AuthContext} from '@/services/auth/provider';
+import {localeStore} from '@/services/storage';
 import {useAppStore} from '@/services/store';
 import {logger} from '@/utils/logger';
 
@@ -77,4 +82,22 @@ export const useAuth = () => {
     user,
     isAuthenticated: Boolean(token),
   };
+};
+
+export const useAuthErrors = () => {
+  const navigate = useNavigate();
+
+  const checkAuthError = useCallback(
+    (statusCode) => {
+      if (statusCode === ERROR_STATUS.UNAUTHORIZED) {
+        localeStore.remove(AUTHORIZATION_TOKEN_KEY);
+        localeStore.remove(USER_DATA_KEY);
+
+        navigate(ROUTES.SIGN_IN);
+      }
+    },
+    [navigate],
+  );
+
+  return {checkAuthError};
 };
