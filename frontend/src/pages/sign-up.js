@@ -30,11 +30,7 @@ export const SignUpPage = () => {
     !isAuthenticated && (
       <Row gutter={[24, 0]} justify="space-around">
         {contextHolder}
-        <Col
-          xs={{span: 24, offset: 0}}
-          lg={{span: 6, offset: 2}}
-          md={{span: 12}}
-        >
+        <Col xs={{span: 24, offset: 0}} lg={{span: 6}} md={{span: 12}}>
           <Title>Sign Up</Title>
           <Title level={5}>
             Enter your email and password with confirmation to sign up
