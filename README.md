@@ -19,6 +19,7 @@ read a new book.
 
 #### How to run the project?
 1. Clone the repository
+2. Add to your hosts file (/etc/hosts) the next line: `127.0.0.1 focus-lines.local`
 2. Run `make run` in the root directory
 
 #### Project structure
